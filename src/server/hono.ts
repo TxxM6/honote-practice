@@ -18,9 +18,8 @@ const blogApp = new OpenAPIHono()
   .openapi(getBlogByIdRoute, getBlogByIdHandler)
   .openapi(createBlogRoute, createBlogHandler);
 
-app.route("/blogs", blogApp);
+const route = app.route("/blogs", blogApp);
 
-//この部分を加える
 app
   .doc("/specification", {
     openapi: "3.0.0",
@@ -35,4 +34,6 @@ app
   })
   .get("/doc", swaggerUI({ url: "/api/specification" }));
 
+//routeを型としてexportしておく
+export type AppType = typeof route;
 export default app;
